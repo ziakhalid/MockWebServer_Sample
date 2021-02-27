@@ -1,16 +1,20 @@
 package co.zia.khalid.mockwebserver_sample.di
 
+import android.content.Context
 import co.zia.khalid.mockwebserver_sample.data.DefaultWeatherRepository
 import co.zia.khalid.mockwebserver_sample.data.WeatherDataSource
 import co.zia.khalid.mockwebserver_sample.data.WeatherRepository
 import co.zia.khalid.mockwebserver_sample.data.local.WeatherLocalDataSource
 import co.zia.khalid.mockwebserver_sample.data.remote.WeatherRemoteDataSource
 import co.zia.khalid.mockwebserver_sample.data.remote.WeatherService
+import co.zia.khalid.mockwebserver_sample.server.EndPointProvider
+import co.zia.khalid.mockwebserver_sample.server.EndPointProviderImp
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import kotlinx.coroutines.Dispatchers
 import okhttp3.OkHttpClient
@@ -51,10 +55,10 @@ class ApplicationModule {
 
     @Singleton
     @Provides
-    fun provideRetrofit(moshi: Moshi, client: OkHttpClient): Retrofit {
+    fun provideRetrofit(moshi: Moshi, client: OkHttpClient, endPointProvider: EndPointProvider): Retrofit {
         return Retrofit.Builder()
             .addConverterFactory(MoshiConverterFactory.create(moshi))
-            .baseUrl("https://www.metaweather.com")
+            .baseUrl(endPointProvider.getWeatherEndpointUrl())
             .client(client)
             .build()
     }
@@ -82,6 +86,13 @@ class ApplicationModule {
     fun provideWeatherLocalDataSource(): WeatherDataSource {
         return WeatherLocalDataSource()
     }
+
+    @Singleton
+    @Provides
+    fun provideEndPointProvider(@ApplicationContext context: Context):EndPointProvider{
+        return EndPointProviderImp(context)
+    }
+
 }
 
 @Module
@@ -96,3 +107,4 @@ object TaskRepositoryModule {
         return DefaultWeatherRepository(remoteDataSource, localDataSource)
     }
 }
+

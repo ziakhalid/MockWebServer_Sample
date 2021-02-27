@@ -21,7 +21,7 @@ class WeatherFragmentViewModel @Inject constructor(
     val itemList:LiveData<List<WeatherCity>> = _itemList
 
     init {
-        getWeatherCityList()
+//        getWeatherCityList()
     }
 
     fun getWeatherCityList(){
@@ -29,7 +29,6 @@ class WeatherFragmentViewModel @Inject constructor(
             val result = weatherRepository.getCitiesByLatLong("36.96,-122.02")
             (result as? Result.Success)?.let {
                 _itemList.value = it.data ?: emptyList()
-                Log.e("ziakhalid", "${it.data.size}")
             }
         }
     }
