@@ -1,4 +1,4 @@
-package co.zia.khalid.mockwebserver_sample.mocked.co.zia.khalid.mock
+package co.zia.khalid.mock
 
 import java.util.regex.Pattern
 

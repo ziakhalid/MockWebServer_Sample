@@ -1,6 +1,5 @@
-package co.zia.khalid.mockwebserver_sample.mocked.co.zia.khalid.mock
+package co.zia.khalid.mock
 
-import com.mobiata.mocke3.FileOpener
 import okhttp3.mockwebserver.MockResponse
 import okhttp3.mockwebserver.RecordedRequest
 import java.io.BufferedReader

@@ -1,4 +1,4 @@
-package com.mobiata.mocke3
+package co.zia.khalid.mock
 
 import java.io.IOException
 import java.io.InputStream

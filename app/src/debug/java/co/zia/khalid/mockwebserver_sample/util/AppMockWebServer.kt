@@ -1,8 +1,7 @@
-package co.zia.khalid.mockwebserver_sample.server
+package co.zia.khalid.mockwebserver_sample.util
 
 import android.content.Context
-import co.zia.khalid.mockwebserver_sample.mocked.co.zia.khalid.mock.AndroidFileOpener
-import co.zia.khalid.mockwebserver_sample.mocked.co.zia.khalid.mock.AppDispatcher
+import co.zia.khalid.mock.AppDispatcher
 import okhttp3.HttpUrl
 import okhttp3.mockwebserver.MockWebServer
 import okhttp3.tls.HandshakeCertificates
