@@ -15,7 +15,8 @@
         android:theme="@style/Theme.MockWebServer_Sample"
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
-        <activity android:name=".MainActivity">
+        <activity android:name=".MainActivity"></activity>
+        <activity android:name=".splash.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

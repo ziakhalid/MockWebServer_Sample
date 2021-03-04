@@ -7,6 +7,7 @@ import co.zia.khalid.mockwebserver_sample.data.WeatherRepository
 import co.zia.khalid.mockwebserver_sample.data.local.WeatherLocalDataSource
 import co.zia.khalid.mockwebserver_sample.data.remote.WeatherRemoteDataSource
 import co.zia.khalid.mockwebserver_sample.data.remote.WeatherService
+import co.zia.khalid.mockwebserver_sample.dialog.ChooseServerDialog
 import co.zia.khalid.mockwebserver_sample.server.EndPointProvider
 import co.zia.khalid.mockwebserver_sample.server.EndPointProviderImp
 import com.squareup.moshi.Moshi
@@ -55,7 +56,11 @@ class ApplicationModule {
 
     @Singleton
     @Provides
-    fun provideRetrofit(moshi: Moshi, client: OkHttpClient, endPointProvider: EndPointProvider): Retrofit {
+    fun provideRetrofit(
+        moshi: Moshi,
+        client: OkHttpClient,
+        endPointProvider: EndPointProvider
+    ): Retrofit {
         return Retrofit.Builder()
             .addConverterFactory(MoshiConverterFactory.create(moshi))
             .baseUrl(endPointProvider.getWeatherEndpointUrl())
@@ -89,8 +94,14 @@ class ApplicationModule {
 
     @Singleton
     @Provides
-    fun provideEndPointProvider(@ApplicationContext context: Context):EndPointProvider{
+    fun provideEndPointProvider(@ApplicationContext context: Context): EndPointProvider {
         return EndPointProviderImp(context)
+    }
+
+    @Singleton
+    @Provides
+    fun provideChooseServerDialog(): ChooseServerDialog {
+        return ChooseServerDialog()
     }
 
 }
