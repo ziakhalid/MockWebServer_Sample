@@ -1,6 +1,5 @@
 package co.zia.khalid.mockwebserver_sample.weather
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -19,10 +18,6 @@ class WeatherFragmentViewModel @Inject constructor(
 
     private val _itemList = MutableLiveData<List<WeatherCity>>()
     val itemList:LiveData<List<WeatherCity>> = _itemList
-
-    init {
-//        getWeatherCityList()
-    }
 
     fun getWeatherCityList(){
         viewModelScope.launch {

@@ -16,7 +16,7 @@ class AppMockWebServer(context: Context) {
     private var appDispatcher: AppDispatcher
 
     init {
-//        mockWebServer.useHttps(getLocalhostSslSocketFactory(), false)
+        mockWebServer.useHttps(getLocalhostSslSocketFactory(), false)
         val fileOpener = AndroidFileOpener(context)
         appDispatcher = AppDispatcher(fileOpener)
         mockWebServer.dispatcher = appDispatcher

@@ -9,8 +9,10 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.viewModels
 import co.zia.khalid.mockwebserver_sample.Event
 import co.zia.khalid.mockwebserver_sample.EventObserver
+import co.zia.khalid.mockwebserver_sample.WeatherApplication
 import co.zia.khalid.mockwebserver_sample.databinding.ChooseServerDialogBinding
 import co.zia.khalid.mockwebserver_sample.util.SettingsUtil.PREF_WHICH_API_TO_USE
+import dagger.hilt.android.AndroidEntryPoint
 
 class ChooseServerDialog : DialogFragment() {
 
@@ -21,6 +23,7 @@ class ChooseServerDialog : DialogFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setStyle(STYLE_NORMAL, 0)
+        isCancelable = false
     }
 
     override fun onCreateView(
@@ -35,11 +38,13 @@ class ChooseServerDialog : DialogFragment() {
 
         viewModel.mockServerSelected.observe(viewLifecycleOwner, EventObserver {
             viewModel.saveChooseServerInfo(context, PREF_WHICH_API_TO_USE, "Mock Mode")
-            dismissDialog()
         })
 
         viewModel.productionServerSelected.observe(viewLifecycleOwner, EventObserver {
             viewModel.saveChooseServerInfo(context, PREF_WHICH_API_TO_USE, "Production")
+        })
+
+        viewModel.serverInfoReady.observe(viewLifecycleOwner, EventObserver{
             dismissDialog()
         })
         return viewBinding.root
@@ -51,7 +56,12 @@ class ChooseServerDialog : DialogFragment() {
     }
 
     private fun dismissDialog() {
+//        notifyServerInitialization()
         dialogFinishedListener(Event(Unit))
         dismiss()
+    }
+
+    private fun notifyServerInitialization(){
+        (context?.applicationContext as? WeatherApplication)?.initializeServer()
     }
 }

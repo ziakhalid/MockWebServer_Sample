@@ -30,8 +30,9 @@ class EndPointProviderImp(private val context: Context) : EndPointProvider {
     }
 
     override fun getCustomServerAddress(): String {
-        //        return "https://$server/"
-        return SettingsUtil.get(context, PREF_PROXY_SERVER_ADDRESS, "localhost:3000")
+//        val server = SettingsUtil.get(context, PREF_PROXY_SERVER_ADDRESS, "")
+//                return "https://$server/"
+        return SettingsUtil.get(context, PREF_PROXY_SERVER_ADDRESS, "")
     }
 
 }

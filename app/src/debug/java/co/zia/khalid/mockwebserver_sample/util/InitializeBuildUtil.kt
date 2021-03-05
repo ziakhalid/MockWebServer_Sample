@@ -7,9 +7,9 @@ import co.zia.khalid.mockwebserver_sample.server.EndPointProvider
 object InitializeBuildUtil {
 
     fun initializeMockWebServerIfMockMode(context: Context, endPointProvider: EndPointProvider) {
-        if (endPointProvider.getEndPoint() == EndPoint.MOCK_MODE) {
+//        if (endPointProvider.getEndPoint() == EndPoint.MOCK_MODE) {
             MockModeShim.initMockWebServer(context)
-        }
+//        }
     }
 
 }

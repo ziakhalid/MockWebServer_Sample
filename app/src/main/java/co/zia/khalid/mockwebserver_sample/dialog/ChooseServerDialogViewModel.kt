@@ -8,6 +8,7 @@ import androidx.lifecycle.viewModelScope
 import co.zia.khalid.mockwebserver_sample.Event
 import co.zia.khalid.mockwebserver_sample.util.SettingsUtil
 import kotlinx.coroutines.launch
+import java.lang.Exception
 
 class ChooseServerDialogViewModel : ViewModel() {
 
@@ -16,6 +17,9 @@ class ChooseServerDialogViewModel : ViewModel() {
 
     private val _productionServerSelected = MutableLiveData<Event<Unit>>()
     val productionServerSelected: LiveData<Event<Unit>> = _productionServerSelected
+
+    private val _serverInfoReady = MutableLiveData<Event<Unit>>()
+    val serverInfoReady:LiveData<Event<Unit>> = _serverInfoReady
 
     fun mockServerSelected() {
         _mockServerSelected.value = Event(Unit)
@@ -26,9 +30,14 @@ class ChooseServerDialogViewModel : ViewModel() {
     }
 
     fun saveChooseServerInfo(context: Context?, key: String, value: String) {
-        viewModelScope.launch {
-            SettingsUtil.save(context, key, value)
-        }
+//        viewModelScope.launch {
+            try {
+                SettingsUtil.save(context, key, value)
+                _serverInfoReady.postValue(Event(Unit))
+            }catch (e:Exception){
+
+            }
+//        }
     }
 
 }

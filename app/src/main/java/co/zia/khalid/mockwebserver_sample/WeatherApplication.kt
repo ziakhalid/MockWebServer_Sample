@@ -13,6 +13,11 @@ class WeatherApplication : Application(){
 
     override fun onCreate() {
         super.onCreate()
+        initializeServer()
+    }
+
+    fun initializeServer(){
         InitializeBuildUtil.initializeMockWebServerIfMockMode(this, endPointProvider)
     }
+
 }
