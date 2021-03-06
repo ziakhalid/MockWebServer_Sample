@@ -10,14 +10,14 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import com.google.common.truth.Truth.assertThat
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 class WeatherFragmentViewModelTest {
 
     //subject Under Test
     private lateinit var viewModel: WeatherFragmentViewModel
 
-    private lateinit var weatherRepository: WeatherRepository
-
+    @ExperimentalCoroutinesApi
     @get:Rule
     var mainCoroutineRule = MainCoroutineRule()
 
@@ -35,8 +35,8 @@ class WeatherFragmentViewModelTest {
         viewModel.getWeatherCityList()
         viewModel.itemList.observeForTesting {
             assertThat(viewModel.itemList.getOrAwaitValue()).hasSize(2)
+            assertThat(viewModel.itemList.value?.get(0)?.title).isEqualTo("Santa Cruz")
         }
     }
-
 
 }

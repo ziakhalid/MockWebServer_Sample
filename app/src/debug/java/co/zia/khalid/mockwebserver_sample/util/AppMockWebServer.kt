@@ -25,11 +25,11 @@ class AppMockWebServer(context: Context) {
     private fun getLocalhostSslSocketFactory(): SSLSocketFactory {
         val localhost = InetAddress.getByName("localhost").canonicalHostName
         val localhostCertificate = HeldCertificate.Builder()
-            .addSubjectAlternativeName(localhost)
-            .build()
+                .addSubjectAlternativeName(localhost)
+                .build()
         val serverCertificates = HandshakeCertificates.Builder()
-            .heldCertificate(localhostCertificate)
-            .build()
+                .heldCertificate(localhostCertificate)
+                .build()
         return serverCertificates.sslSocketFactory()
     }
 
@@ -53,10 +53,8 @@ class AppMockWebServer(context: Context) {
     fun getAppDispatcher() = appDispatcher
 
     fun getHostWithPort(): String {
-//        val mockUrl = mockWebServer.url("")
-//        return "${mockUrl.host}:${mockUrl.port}"
-         val baseUrl: HttpUrl = mockWebServer.url("")
-        return baseUrl.toString()
+        val mockUrl = mockWebServer.url("")
+        return "${mockUrl.host}:${mockUrl.port}"
     }
 
 }

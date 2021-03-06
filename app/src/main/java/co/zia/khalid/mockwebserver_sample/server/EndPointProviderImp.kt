@@ -16,7 +16,7 @@ class EndPointProviderImp(private val context: Context) : EndPointProvider {
     }
 
     override fun getEndPoint(): EndPoint {
-        if (BuildConfig.RELEASE){
+        if (BuildConfig.RELEASE) {
             return EndPoint.PRODUCTION
         }
         return when (getEndPointName()) {
@@ -30,9 +30,8 @@ class EndPointProviderImp(private val context: Context) : EndPointProvider {
     }
 
     override fun getCustomServerAddress(): String {
-//        val server = SettingsUtil.get(context, PREF_PROXY_SERVER_ADDRESS, "")
-//                return "https://$server/"
-        return SettingsUtil.get(context, PREF_PROXY_SERVER_ADDRESS, "")
+        val server = SettingsUtil.get(context, PREF_PROXY_SERVER_ADDRESS, "")
+        return "https://$server/"
     }
 
 }
