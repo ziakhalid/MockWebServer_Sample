@@ -61,6 +61,12 @@ android {
     buildFeatures {
         dataBinding true
     }
+
+    sourceSets {
+        debug {
+            assets.srcDirs += '../lib/mocked/templates'
+        }
+    }
 }
 
 dependencies {

@@ -11,7 +11,7 @@ class WeatherDispatcher(fileOpener: FileOpener) : AbstractDispatcher(fileOpener)
 
         return when{
             WeatherRequestMatcher.isLocationSearchRequest(urlPath) ->{
-                return getMockResponse("location_search.json")
+                return getMockResponse("weather/location_search.json")
             }
             else -> make404()
         }

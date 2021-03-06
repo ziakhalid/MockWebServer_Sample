@@ -2,7 +2,6 @@ package co.zia.khalid.mockwebserver_sample.util
 
 import android.content.Context
 import co.zia.khalid.mock.AppDispatcher
-import okhttp3.HttpUrl
 import okhttp3.mockwebserver.MockWebServer
 import okhttp3.tls.HandshakeCertificates
 import okhttp3.tls.HeldCertificate
