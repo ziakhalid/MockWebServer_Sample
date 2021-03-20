@@ -11,7 +11,7 @@ import javax.net.ssl.SSLContext
 import javax.net.ssl.TrustManager
 import javax.net.ssl.X509TrustManager
 
-open class InsecureOkHttpClientFactory() : SecureOKHttpClientFactory() {
+open class InsecureOkHttpClientFactory : SecureOKHttpClientFactory() {
 
     override fun addInterceptors(client: OkHttpClient.Builder) {
         super.addInterceptors(client)
