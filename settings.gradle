@@ -1,2 +1,3 @@
 include ':app'
+include 'lib:mocked:mock'
 rootProject.name = "MockWebServer_Sample"

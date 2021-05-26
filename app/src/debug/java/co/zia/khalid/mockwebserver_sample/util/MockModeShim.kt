@@ -1,13 +1,11 @@
 package co.zia.khalid.mockwebserver_sample.util
 
 import android.content.Context
-import co.zia.khalid.mockwebserver_sample.server.AppMockWebServer
 import co.zia.khalid.mockwebserver_sample.util.SettingsUtil.PREF_PROXY_SERVER_ADDRESS
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import java.util.concurrent.CountDownLatch
 
 object MockModeShim {
 

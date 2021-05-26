@@ -7,8 +7,10 @@ import co.zia.khalid.mockwebserver_sample.data.WeatherRepository
 import co.zia.khalid.mockwebserver_sample.data.local.WeatherLocalDataSource
 import co.zia.khalid.mockwebserver_sample.data.remote.WeatherRemoteDataSource
 import co.zia.khalid.mockwebserver_sample.data.remote.WeatherService
+import co.zia.khalid.mockwebserver_sample.dialog.ChooseServerDialog
 import co.zia.khalid.mockwebserver_sample.server.EndPointProvider
 import co.zia.khalid.mockwebserver_sample.server.EndPointProviderImp
+import co.zia.khalid.mockwebserver_sample.util.OkHttpClientFactory
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import dagger.Module
@@ -18,7 +20,6 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import kotlinx.coroutines.Dispatchers
 import okhttp3.OkHttpClient
-import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import javax.inject.Qualifier
@@ -46,16 +47,23 @@ class ApplicationModule {
 
     @Singleton
     @Provides
-    fun provideOkHttpClient(): OkHttpClient {
-        val logging = HttpLoggingInterceptor()
-        logging.level = HttpLoggingInterceptor.Level.BODY
-        val httpClient = OkHttpClient.Builder().addInterceptor(logging)
-        return httpClient.build()
+    fun provideOkHttpClientFactory(): OkHttpClientFactory {
+        return OkHttpClientFactory()
     }
 
     @Singleton
     @Provides
-    fun provideRetrofit(moshi: Moshi, client: OkHttpClient, endPointProvider: EndPointProvider): Retrofit {
+    fun provideOkHttpClient(okHttpClientFactory: OkHttpClientFactory):OkHttpClient{
+        return okHttpClientFactory.getOkHttpClient()
+    }
+
+    @Singleton
+    @Provides
+    fun provideRetrofit(
+        moshi: Moshi,
+        client: OkHttpClient,
+        endPointProvider: EndPointProvider
+    ): Retrofit {
         return Retrofit.Builder()
             .addConverterFactory(MoshiConverterFactory.create(moshi))
             .baseUrl(endPointProvider.getWeatherEndpointUrl())
@@ -89,8 +97,14 @@ class ApplicationModule {
 
     @Singleton
     @Provides
-    fun provideEndPointProvider(@ApplicationContext context: Context):EndPointProvider{
+    fun provideEndPointProvider(@ApplicationContext context: Context): EndPointProvider {
         return EndPointProviderImp(context)
+    }
+
+    @Singleton
+    @Provides
+    fun provideChooseServerDialog(): ChooseServerDialog {
+        return ChooseServerDialog()
     }
 
 }
